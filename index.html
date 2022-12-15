@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kanji-Puzzle-Maker</title>
+    <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-    
-</body>
+    <script src="index.js"></script>
+    <h1>Kanji Puzzle Maker</h1>
+
+    <body onload="loadImage('preview','blue');">
+        <div id="image-container">
+            <canvas id="preview"></canvas>
+        </div>
+        <p>
+            <input type="text" id="canvas_text" value="熟語">
+            <button onclick="drawText('preview', 'canvas_text');"> 生成する</button>
+        </p>
+    </body>
+
 </html>
