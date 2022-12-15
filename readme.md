@@ -17,7 +17,6 @@ marp: true
 ---
 # HTML&CSS&JavaScript入門
 ## 漢字パズル生成ツールを作ろう
-
 ---
 # HTMLタグ速習
 # ```<h1>見出し１</h1>```
@@ -55,7 +54,6 @@ marp: true
 
 ```
 
-
 ---
 # HTMLのPreviewを表示する
 ## 拡張機能「HTML Preview」をインストールする
@@ -67,15 +65,63 @@ marp: true
 
 
 ---
-# HTMLからjsファイルを読み込むタグ
-## **<script src="">**
+# HTMLからcssファイルを読み込む
+## **<link rel="stylesheet" href = "~~~.css">**
+<br>
+
+```link:css```と入力して```[Tab]```を押すと自動で以下を入力してくれる
+<br>
+
+```html
+<link rel="stylesheet" href="style.css">
+```
+<br>
+
+このhref=の部分を適切なファイル名に書き換えれば良い
+
+---
+# HTMLからjsファイルを読み込む
+## **<script src=" ">**
+<br>
+
 ```html
 <html>
   <body>
-    <script src="sample1.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
 ```
 
 ---
+# 文字列の中に変数を埋め込む①
+1. 全体を``` ` ` (バッククォート)```で囲う
+1. 変数を``` ${} ```で囲う
+## 
+```javascript
+let name = 'Taro';
+console.log(`Hello, my name is ${name}.`);
+```
+↓　name はそのまま name で出力され、${name} は Taro に置換される
+```
+output：
+Hello, my name is Taro.
+```
 
+---
+# 文字列の中に変数を埋め込む②
+1. 文字列は``` " " ```や``` ' ' ```で囲う
+1. 変数は囲まない
+1. 文字列と変数を``` + ```で結合させる
+
+```javascript
+let name = 'Taro';
+console.log("Hello, my name is" + name + ".");
+console.log('Hello, my name is' + name + '.');
+```
+↓　nameがきちんとTaroに変換される
+
+```
+output：
+Hello, my name is Taro.
+Hello, my name is Taro.
+```
