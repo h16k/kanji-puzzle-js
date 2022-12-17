@@ -6,10 +6,36 @@
 body{
   font-family: "ZenMaruGothicRegular";
   background-color: #cee4ae;
+  text-align: center;
 }
 
-#imageContainer{
-    width:60vw;
-    /* height: 35vw; */
-    /* position: relative; */
-  }
+input{
+  font-family: "ZenMaruGothicRegular";
+  font-size: 20px;
+  padding:7px 10px 7px 10px;
+  background-color: #a0d8ef;
+  border: 0px solid;
+  border-radius: 13px;
+}
+input[type="text"]:focus {
+  border: 2px solid white;
+  outline: 0;
+}
+::placeholder{
+  color:#eaedf7;
+
+}
+
+button{
+  font-family: "ZenMaruGothicRegular";
+  font-size: 20px;
+  padding:7px 10px 7px 10px;
+  background-color: #2ca9e1;
+  color:white;
+  border: 0px solid;
+  border-radius: 13px;
+}
+
+canvas{
+  border-radius: 10%;
+}

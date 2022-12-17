@@ -12,7 +12,7 @@ function loadTemp(id, temp_color) {
 		canvas.width = image.width;
 		canvas.height = image.height;
 
-		canvas.style.width = Math.min(Math.max(window.innerWidth * 0.7, 300), 360) + "px";		
+		canvas.style.width = Math.min(Math.max(window.innerWidth * 0.7, 300), 420) + "px";		
 		canvas.style.height = canvas.style.width * (image.height / image.width) + "px";
 
 		//キャンバスに画像を描画（開始位置0,0）
@@ -92,17 +92,14 @@ function createPuzzle(canvas_id, answer) {
 function drawText(canvas_id, puzzle) {
 	let canvas = document.getElementById(canvas_id);
 	let ctx = canvas.getContext('2d');
+	let posi = [[135, 1610],[930, 830],[1750, 830],[2545, 1610],[1750, 2400],[930, 2400]]
 	//文字のスタイルを指定
-	ctx.font = '156px ZenMaruGothicRegular';
+	ctx.font = '320px ZenMaruGothicRegular';
 	ctx.fillStyle = '#000000';
 
-
-	ctx.fillText(puzzle[1], 335, 555);
-	ctx.fillText(puzzle[2], 678, 233);
-	ctx.fillText(puzzle[3], 1075, 233);
-	ctx.fillText(puzzle[4], 1417, 555);
-	ctx.fillText(puzzle[5], 1075, 878);
-	ctx.fillText(puzzle[6], 678, 878);
+	for (let i = 0; i < 6; i++) {
+		ctx.fillText(puzzle[i+1], posi[i][0],posi[i][1]);
+	}
 }
 
 

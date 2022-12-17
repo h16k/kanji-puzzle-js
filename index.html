@@ -10,18 +10,22 @@
 </head>
     <script src="puzzleList.js"></script>
     <script src="index.js"></script>
-    <h1>Kanji Puzzle Maker</h1>
 
-    <body onload="">
-        <p>
-            <input type="text" id="answerText" value="">
-            <button onclick="createPuzzleProcess();"> 生成する</button>
-        </p>
-        <div id="imageContainer">
-            <h1 id = "createResult"></h1>
-            <canvas id="puzzleCanvas"></canvas>
+    <body>
+    <h2>Kanji Puzzle Maker</h2>
+
+
+            <input name="答え" type="text" id="answerText" placeholder="漢字２文字で入力">
+            <button onclick="createPuzzleProcess();"> 生成</button>
+            <h3 id = "createResult"></h3>
+
+            <div id="imageContainer">
+                <canvas id="puzzleCanvas"></canvas>
+            </div>
             <canvas id="answerCanvas"></canvas>
-        </div>
+
+
+
     </body>
 
 </html>
