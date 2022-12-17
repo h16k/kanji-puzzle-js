@@ -9478,12 +9478,14 @@ const stringPuzzles = `哀楽 哀願 安楽 音楽 快楽 楽園 楽屋 楽観 �
 let puzzleStringDividedPerLine = stringPuzzles.split('\n');
 let puzzleList = [];
 let puzzleIndexMap = new Map();
+
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
     puzzleList.push(aPuzzle.slice(0,-1));
     puzzleIndexMap.set(aPuzzle[0], ind);
 
 });
+
 if("aaa".includes("aa")){
 console.log("true");
 }else{

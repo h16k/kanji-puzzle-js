@@ -154,3 +154,5 @@ let puzzleStringDividedPerLine = stringPuzzles.split('\n');
 [配列へ要素を追加する](https://www.javadrive.jp/javascript/array/index4.html#section2)
 
 [JavaScript | split()で文字列を区切り文字で分割して配列に代入する方法](https://1-notes.com/javascript-split/)
+
+[CanvasRenderingContext2D.fillText()](https://developer.mozilla.org/ja/docs/Web/API/CanvasRenderingContext2D/fillText)

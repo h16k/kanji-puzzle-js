@@ -1,6 +1,15 @@
-#image-container{
+@font-face {
+  font-family: 'ZenMaruGothicRegular';
+  src: url('fonts/ZenMaruGothic-Regular.ttf');
+}
+
+body{
+  font-family: "ZenMaruGothicRegular";
+  background-color: #cee4ae;
+}
+
+#imageContainer{
     width:60vw;
-    text-align: center;
     /* height: 35vw; */
     /* position: relative; */
   }

@@ -8,20 +8,20 @@
     <title>Kanji-Puzzle-Maker</title>
     <link rel="stylesheet" href="index.css">
 </head>
-
-<body>
     <script src="puzzleList.js"></script>
     <script src="index.js"></script>
     <h1>Kanji Puzzle Maker</h1>
 
-    <body>
-        <div id="imageContainer">
-            <canvas id="preview"></canvas>
-        </div>
+    <body onload="">
         <p>
-            <input type="text" id="answerText" value="熟語">
-            <button onclick="loadImage('preview','blue');createPuzzle('preview', 'answerText');"> 生成する</button>
+            <input type="text" id="answerText" value="">
+            <button onclick="createPuzzleProcess();"> 生成する</button>
         </p>
+        <div id="imageContainer">
+            <h1 id = "createResult"></h1>
+            <canvas id="puzzleCanvas"></canvas>
+            <canvas id="answerCanvas"></canvas>
+        </div>
     </body>
 
 </html>
