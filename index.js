@@ -114,6 +114,7 @@ function createPuzzleProcess() {
 
 		promise.then(function () {
 			document.getElementById('createResult').innerText = `「${answer}」でパズルを生成しました！`;
+			document.getElementById('note').innerText = `画像が出ない場合は、もう一度「生成」を押してください`;
 			setTimeout(()=>drawText('puzzleCanvas', puzzle), 2)
 			
 		});
