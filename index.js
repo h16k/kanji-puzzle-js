@@ -10,8 +10,9 @@ function loadTemp(id, temp_color) {
 		canvas.width = image.width;
 		canvas.height = image.height;
 
-		canvas.style.width = Math.min(Math.max(window.innerWidth * 0.7, 300), 420) + "px";
-		canvas.style.height = canvas.style.width * (image.height / image.width) + "px";
+		canvas.style.width = Math.min(window.innerWidth * 0.9, 400) + "px";
+		canvas.style.height = Math.min(window.innerWidth * 0.9, 400) + "px";
+
 
 		//キャンバスに画像を描画（開始位置0,0）
 		ctx.drawImage(image, 0, 0);
@@ -80,9 +81,6 @@ function createPuzzle(canvas_id, answer) {
 }
 
 
-
-
-
 //キャンバスに文字を描く
 function drawText(canvas_id, puzzle) {
 	let canvas = document.getElementById(canvas_id);
@@ -97,6 +95,12 @@ function drawText(canvas_id, puzzle) {
 	}
 }
 
+function clearCanvas(id){
+	let canvas = document.getElementById(id);
+	canvas.width = "0px";
+	canvas.height = "0px";
+}
+
 
 function createPuzzleProcess() {
 	let answer = document.getElementById("answerText").value;
@@ -108,13 +112,14 @@ function createPuzzleProcess() {
 		});
 
 		promise.then(function () {
-			document.getElementById('createResult').innerText = `「${answer}」でパズルを生成しました！`;
-			document.getElementById('note').innerText = `画像が出ない場合は、もう一度「生成」を押してください`;
+			document.getElementById('createResult').innerText = `「${answer}」が答えになるパズルを生成しました！`;
+			document.getElementById('note').innerText = `画像が出ない時は、もう一度「生成」を押してね`;
 			setTimeout(() => drawText('puzzleCanvas', puzzle), 2)
 
 		});
 	} else {
-		document.getElementById('createResult').innerText = `「${answer}」でパズルを生成できませんでした`;
+		clearCanvas('puzzleCanvas');
+		document.getElementById('createResult').innerText = `「${answer}」が答えになるパズルを生成できませんでした`;
 		document.getElementById('note').innerText = ``;
 
 
