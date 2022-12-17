@@ -125,3 +125,32 @@ output：
 Hello, my name is Taro.
 Hello, my name is Taro.
 ```
+---
+
+# 文字列を特定の文字で分割するsplit
+```javascript
+let puzzleStringDividedPerLine = stringPuzzles.split('\n');
+```
+
+---
+# push
+---
+# slice
+
+# map
+
+[JavaScript　Mapオブジェクト](https://qiita.com/chihiro/items/9965cd7eca0380cf288c)
+[JavaScriptで特定の文字列が含まれているか調べるメソッドの使い方](https://qiita.com/shimajiri/items/a2d79d9aa1323da972f3)
+[【JavaScript入門】sliceで文字列や配列(Array)を切り抜く方法まとめ](https://www.sejuku.net/blog/25488)
+
+[Math.random()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
+
+[【JavaScript】let、const、varの違いと使い分け方法を徹底解説](https://techplay.jp/column/1619)
+
+[【ES6】 JavaScript初心者でもわかるPromise講座](https://qiita.com/cheez921/items/41b744e4e002b966391a)
+
+[配列の要素を順に取得する](https://www.javadrive.jp/javascript/array/index10.html)
+
+[配列へ要素を追加する](https://www.javadrive.jp/javascript/array/index4.html#section2)
+
+[JavaScript | split()で文字列を区切り文字で分割して配列に代入する方法](https://1-notes.com/javascript-split/)
