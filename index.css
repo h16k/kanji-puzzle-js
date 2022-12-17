@@ -12,10 +12,11 @@ body{
 input{
   font-family: "ZenMaruGothicRegular";
   font-size: 20px;
-  padding:7px 10px 7px 10px;
+  padding:10px;
   background-color: #a0d8ef;
-  border: 0px solid;
-  border-radius: 13px;
+  border: 0px solid ;
+  border-radius: 10px;
+  color: white;
 }
 input[type="text"]:focus {
   border: 2px solid white;
@@ -27,15 +28,20 @@ input[type="text"]:focus {
 }
 
 button{
+  margin-left: 5px;
   font-family: "ZenMaruGothicRegular";
-  font-size: 20px;
-  padding:7px 10px 7px 10px;
+  font-size: 17px;
+  padding:5px 10px 7px 10px;
   background-color: #2ca9e1;
   color:white;
   border: 0px solid;
   border-radius: 13px;
+  box-shadow: 0 3px 0 #3e62ad;
 }
-
+button:active {
+  box-shadow: none;
+  transform: translateY(3px);
+}
 canvas{
   border-radius: 10%;
 }
