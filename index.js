@@ -1,11 +1,3 @@
-function enter(e) {
-  	if (e === 13) {
-		createPuzzleProcess();
-	}  
-	return false;
-}
-
-
 function loadTemp(id, temp_color) {
 	//画像を読み込んでImageオブジェクトを作成する
 	let image = new Image();
@@ -13,14 +5,12 @@ function loadTemp(id, temp_color) {
 	image.onload = (function () {
 		//画像ロードが完了してからキャンバスの準備をする
 		let canvas = document.getElementById(id);
-		let imageContainer = document.getElementById("imageContainer");
-
 		let ctx = canvas.getContext('2d');
 
 		canvas.width = image.width;
 		canvas.height = image.height;
 
-		canvas.style.width = Math.min(Math.max(window.innerWidth * 0.7, 300), 420) + "px";		
+		canvas.style.width = Math.min(Math.max(window.innerWidth * 0.7, 300), 420) + "px";
 		canvas.style.height = canvas.style.width * (image.height / image.width) + "px";
 
 		//キャンバスに画像を描画（開始位置0,0）
@@ -45,7 +35,7 @@ function twoRandNum(max) {
 function createPuzzle(canvas_id, answer) {
 	console.log(answer);
 	let ok = false;
-	if (puzzleIndexMap.has(answer)) {
+	if (puzzleIndexMap.has(answer)) {//ユーザーが入力した答えが登録されているとき
 		let puzzlePieces = puzzleList[puzzleIndexMap.get(answer)];
 		leftAndLeftUp = [];
 		leftDown = [];
@@ -70,25 +60,22 @@ function createPuzzle(canvas_id, answer) {
 		}
 
 		if ((leftAndLeftUp.length >= 2) && (rightAndRightDown.length >= 2) && (rightUp.length > 0) && (leftDown.length > 0)) {
-			ok = true;
+			let randL = twoRandNum(leftAndLeftUp.length);
+			let randR = twoRandNum(rightAndRightDown.length);
+			let puzzle = [
+				answer,
+				leftAndLeftUp[randL[0]][0],
+				leftAndLeftUp[randL[1]][0],
+				rightUp[randNum(rightUp.length)][0],
+				rightAndRightDown[randR[0]][1],
+				rightAndRightDown[randR[1]][1],
+				leftDown[randNum(leftDown.length)][1]
+			];
+
+			return puzzle;
 		}
 	}
-
-	if (ok) {
-		let puzzle = [answer];
-		let randL = twoRandNum(leftAndLeftUp.length);
-		puzzle.push(leftAndLeftUp[randL[0]][0]);
-		puzzle.push(leftAndLeftUp[randL[1]][0]);
-		puzzle.push(rightUp[randNum(rightUp.length)][0]);
-		let randR = twoRandNum(rightAndRightDown.length);
-		puzzle.push(rightAndRightDown[randR[0]][1]);
-		puzzle.push(rightAndRightDown[randR[1]][1]);
-		puzzle.push(leftDown[randNum(leftDown.length)][1]);
-		return puzzle;
-	} else {
-		console.log("no");
-		return false;
-	}
+	return false;
 
 }
 
@@ -100,13 +87,13 @@ function createPuzzle(canvas_id, answer) {
 function drawText(canvas_id, puzzle) {
 	let canvas = document.getElementById(canvas_id);
 	let ctx = canvas.getContext('2d');
-	let posi = [[135, 1610],[930, 830],[1750, 830],[2545, 1610],[1750, 2400],[930, 2400]]
+	let posi = [[135, 1610], [930, 830], [1750, 830], [2545, 1610], [1750, 2400], [930, 2400]]
 	//文字のスタイルを指定
 	ctx.font = '320px ZenMaruGothicRegular';
 	ctx.fillStyle = '#000000';
 
 	for (let i = 0; i < 6; i++) {
-		ctx.fillText(puzzle[i+1], posi[i][0],posi[i][1]);
+		ctx.fillText(puzzle[i + 1], posi[i][0], posi[i][1]);
 	}
 }
 
@@ -123,8 +110,8 @@ function createPuzzleProcess() {
 		promise.then(function () {
 			document.getElementById('createResult').innerText = `「${answer}」でパズルを生成しました！`;
 			document.getElementById('note').innerText = `画像が出ない場合は、もう一度「生成」を押してください`;
-			setTimeout(()=>drawText('puzzleCanvas', puzzle), 2)
-			
+			setTimeout(() => drawText('puzzleCanvas', puzzle), 2)
+
 		});
 	} else {
 		document.getElementById('createResult').innerText = `「${answer}」でパズルを生成できませんでした`;
@@ -135,3 +122,9 @@ function createPuzzleProcess() {
 
 }
 
+function enter(e) {
+	if (e === 13) {
+		createPuzzleProcess();
+	}
+	return false;
+}
