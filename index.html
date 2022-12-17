@@ -15,7 +15,7 @@
     <h2>Kanji Puzzle Maker</h2>
 
 
-            <input name="答え" type="text" id="answerText" placeholder="漢字２文字で入力">
+            <input name="答え" type="text" id="answerText" placeholder="漢字２文字で入力" onkeypress="enter(event.keyCode);">
             <button onclick="createPuzzleProcess();"> 生成</button>
             <h3 id = "createResult"></h3>
             <p id = "note"></p>

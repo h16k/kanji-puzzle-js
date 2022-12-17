@@ -1,3 +1,11 @@
+function enter(e) {
+  	if (e === 13) {
+		createPuzzleProcess();
+	}  
+	return false;
+}
+
+
 function loadTemp(id, temp_color) {
 	//画像を読み込んでImageオブジェクトを作成する
 	let image = new Image();
@@ -120,9 +128,10 @@ function createPuzzleProcess() {
 		});
 	} else {
 		document.getElementById('createResult').innerText = `「${answer}」でパズルを生成できませんでした`;
+		document.getElementById('note').innerText = ``;
+
 
 	}
 
-
-
 }
+
