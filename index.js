@@ -1,21 +1,32 @@
-function loadTemp(id, temp_color) {
+let puzzle = [];
+
+function loadTemp(id, scale) {
 	//画像を読み込んでImageオブジェクトを作成する
-	let image = new Image();
-	image.src = `template/template_${temp_color}.jpg`;
-	image.onload = (function () {
+	let elements = document.getElementsByName('tempColor');
+	let len = elements.length;
+	let tempColor = '';
+
+	for (let i = 0; i < len; i++) {
+		if (elements.item(i).checked) {
+			tempColor = elements.item(i).value;
+		}
+	}
+	let tempImage = new Image();
+	tempImage.src = `template/template_${tempColor}.jpg`;
+	tempImage.onload = (function () {
 		//画像ロードが完了してからキャンバスの準備をする
 		let canvas = document.getElementById(id);
 		let ctx = canvas.getContext('2d');
 
-		canvas.width = image.width;
-		canvas.height = image.height;
+		canvas.width = tempImage.width;
+		canvas.height = tempImage.height;
 
-		canvas.style.width = Math.min(window.innerWidth * 0.9, 400) + "px";
-		canvas.style.height = Math.min(window.innerWidth * 0.9, 400) + "px";
+		canvas.style.width = Math.min(window.innerWidth * 0.9, 400) * scale + "px";
+		canvas.style.height = Math.min(window.innerWidth * 0.9, 400) * scale + "px";
 
 
 		//キャンバスに画像を描画（開始位置0,0）
-		ctx.drawImage(image, 0, 0);
+		ctx.drawImage(tempImage, 0, 0);
 
 	});
 }
@@ -35,7 +46,6 @@ function twoRandNum(max) {
 
 function createPuzzle(canvas_id, answer) {
 	console.log(answer);
-	let ok = false;
 	if (puzzleIndexMap.has(answer)) {//ユーザーが入力した答えが登録されているとき
 		let puzzlePieces = puzzleList[puzzleIndexMap.get(answer)];
 		leftAndLeftUp = [];
@@ -81,13 +91,13 @@ function createPuzzle(canvas_id, answer) {
 }
 
 
-//キャンバスに文字を描く
-function drawText(canvas_id, puzzle) {
+//パズルのヒントを書き込む
+function drawHint(canvas_id, puzzle) {
 	let canvas = document.getElementById(canvas_id);
 	let ctx = canvas.getContext('2d');
 	let posi = [[135, 1610], [930, 830], [1750, 830], [2545, 1610], [1750, 2400], [930, 2400]]
-	//文字のスタイルを指定
-	ctx.font = '320px ZenMaruGothicRegular';
+
+	ctx.font = '320px ZenMaruGothicRegular'; //文字のスタイルを指定
 	ctx.fillStyle = '#000000';
 
 	for (let i = 0; i < 6; i++) {
@@ -95,7 +105,20 @@ function drawText(canvas_id, puzzle) {
 	}
 }
 
-function clearCanvas(id){
+function drawAns(canvas_id, puzzle) {
+	let canvas = document.getElementById(canvas_id);
+	let ctx = canvas.getContext('2d');
+	let posi = [[840, 1690], [1645, 1690]]
+
+	ctx.font = '500px ZenMaruGothicRegular'; //文字のスタイルを指定
+	ctx.fillStyle = '#ea5506';
+
+	for (let i = 0; i < 2; i++) {
+		ctx.fillText(puzzle[0][i], posi[i][0], posi[i][1]);
+	}
+}
+
+function clearCanvas(id) {
 	let canvas = document.getElementById(id);
 	canvas.width = "0px";
 	canvas.height = "0px";
@@ -104,21 +127,25 @@ function clearCanvas(id){
 
 function createPuzzleProcess() {
 	let answer = document.getElementById("answerText").value;
-	let puzzle = createPuzzle('puzzleCanvas', answer);
+	puzzle = createPuzzle('puzzleCanvas', answer);
 	if (puzzle != false) {
 		const promise = new Promise(function (resolve, reject) {
-			loadTemp("puzzleCanvas", "blue");
-			setTimeout(() => resolve(), 2);
+			loadTemp("puzzleCanvas", 1);
+			loadTemp("answerCanvas", 0.7);
+			setTimeout(() => resolve(), 3);
 		});
 
 		promise.then(function () {
 			document.getElementById('createResult').innerText = `「${answer}」が答えになるパズルを生成しました！`;
 			document.getElementById('note').innerText = `画像が出ない時は、もう一度「生成」を押してね`;
-			setTimeout(() => drawText('puzzleCanvas', puzzle), 2)
+			drawHint('puzzleCanvas', puzzle);
+			drawHint('answerCanvas', puzzle);
+			drawAns('answerCanvas', puzzle);
 
 		});
 	} else {
 		clearCanvas('puzzleCanvas');
+		clearCanvas('answerCanvas');
 		document.getElementById('createResult').innerText = `「${answer}」が答えになるパズルを生成できませんでした`;
 		document.getElementById('note').innerText = ``;
 
@@ -132,4 +159,23 @@ function enter(e) {
 		createPuzzleProcess();
 	}
 	return false;
+}
+
+function colorChange(){
+	if(puzzle!=false){
+		const promise = new Promise(function (resolve, reject) {
+			loadTemp("puzzleCanvas", 1);
+			loadTemp("answerCanvas", 0.7);
+			setTimeout(() => resolve(), 3);
+		});
+
+		promise.then(function () {
+			drawHint('puzzleCanvas', puzzle);
+			drawHint('answerCanvas', puzzle);
+			drawAns('answerCanvas', puzzle);
+
+		});
+	}
+
+	
 }
