@@ -2,13 +2,13 @@ let puzzle = [];
 
 function loadTemp(id, scale) {
 	//画像を読み込んでImageオブジェクトを作成する
-	let elements = document.getElementsByName('tempColor');
-	let len = elements.length;
+	let radioButtonsForTempColor = document.getElementsByName('tempColor');
+	let lengthOfRadioButtons = radioButtonsForTempColor.length;
 	let tempColor = '';
 
-	for (let i = 0; i < len; i++) {
-		if (elements.item(i).checked) {
-			tempColor = elements.item(i).value;
+	for (let i = 0; i < lengthOfRadioButtons; i++) {
+		if (radioButtonsForTempColor.item(i).checked) {
+			tempColor = radioButtonsForTempColor.item(i).value;
 		}
 	}
 	let tempImage = new Image();
@@ -92,7 +92,7 @@ function createPuzzle(canvas_id, answer) {
 
 
 //パズルのヒントを書き込む
-function drawHint(canvas_id, puzzle) {
+function drawHint(canvas_id) {
 	let canvas = document.getElementById(canvas_id);
 	let ctx = canvas.getContext('2d');
 	let posi = [[135, 1610], [930, 830], [1750, 830], [2545, 1610], [1750, 2400], [930, 2400]]
@@ -103,11 +103,11 @@ function drawHint(canvas_id, puzzle) {
 		for (let i = 0; i < 6; i++) {
 			ctx.fillText(puzzle[i + 1], posi[i][0], posi[i][1]);
 		}
-	}, 100);
+	}, 200);
 
 }
 
-function drawAns(canvas_id, puzzle) {
+function drawAns(canvas_id) {
 	let canvas = document.getElementById(canvas_id);
 	let ctx = canvas.getContext('2d');
 	let posi = [[840, 1690], [1645, 1690]]
@@ -119,7 +119,7 @@ function drawAns(canvas_id, puzzle) {
 		for (let i = 0; i < 2; i++) {
 			ctx.fillText(puzzle[0][i], posi[i][0], posi[i][1]);
 		}
-	}, 100);
+	}, 250);
 
 }
 
@@ -143,9 +143,9 @@ function createPuzzleProcess() {
 		promise.then(function () {
 			document.getElementById('createResult').innerText = `「${answer}」が答えになるパズルを生成しました！`;
 			document.getElementById('note').innerText = `画像が出ない時は、もう一度「生成」を押してね`;
-			drawHint('puzzleCanvas', puzzle);
-			drawHint('answerCanvas', puzzle);
-			drawAns('answerCanvas', puzzle);
+			drawHint('puzzleCanvas');
+			drawHint('answerCanvas');
+			drawAns('answerCanvas');
 
 		});
 	} else {
@@ -175,9 +175,9 @@ function colorChange(){
 		});
 
 		promise.then(function () {
-			drawHint('puzzleCanvas', puzzle);
-			drawHint('answerCanvas', puzzle);
-			drawAns('answerCanvas', puzzle);
+			drawHint('puzzleCanvas');
+			drawHint('answerCanvas');
+			drawAns('answerCanvas');
 
 		});
 	}
