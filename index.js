@@ -99,10 +99,12 @@ function drawHint(canvas_id, puzzle) {
 
 	ctx.font = '320px ZenMaruGothicRegular'; //文字のスタイルを指定
 	ctx.fillStyle = '#000000';
+	setTimeout(() => {
+		for (let i = 0; i < 6; i++) {
+			ctx.fillText(puzzle[i + 1], posi[i][0], posi[i][1]);
+		}
+	}, 100);
 
-	for (let i = 0; i < 6; i++) {
-		ctx.fillText(puzzle[i + 1], posi[i][0], posi[i][1]);
-	}
 }
 
 function drawAns(canvas_id, puzzle) {
@@ -110,12 +112,15 @@ function drawAns(canvas_id, puzzle) {
 	let ctx = canvas.getContext('2d');
 	let posi = [[840, 1690], [1645, 1690]]
 
-	ctx.font = '500px ZenMaruGothicRegular'; //文字のスタイルを指定
-	ctx.fillStyle = '#ea5506';
 
-	for (let i = 0; i < 2; i++) {
-		ctx.fillText(puzzle[0][i], posi[i][0], posi[i][1]);
-	}
+	setTimeout(() => {
+		ctx.font = '500px ZenMaruGothicRegular'; //文字のスタイルを指定
+		ctx.fillStyle = '#000000';
+		for (let i = 0; i < 2; i++) {
+			ctx.fillText(puzzle[0][i], posi[i][0], posi[i][1]);
+		}
+	}, 100);
+
 }
 
 function clearCanvas(id) {
@@ -166,7 +171,7 @@ function colorChange(){
 		const promise = new Promise(function (resolve, reject) {
 			loadTemp("puzzleCanvas", 1);
 			loadTemp("answerCanvas", 0.7);
-			setTimeout(() => resolve(), 3);
+			setTimeout(() => resolve(), 5);
 		});
 
 		promise.then(function () {
