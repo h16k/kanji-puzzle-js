@@ -1,5 +1,6 @@
 let puzzle = [];
 
+//パズルのテンプレートを読み込む
 function loadTemp(id, scale) {
 	//画像を読み込んでImageオブジェクトを作成する
 	let radioButtonsForTempColor = document.getElementsByName('tempColor');
@@ -8,9 +9,10 @@ function loadTemp(id, scale) {
 
 	for (let i = 0; i < lengthOfRadioButtons; i++) {
 		if (radioButtonsForTempColor.item(i).checked) {
-			tempColor = radioButtonsForTempColor.item(i).value;
+			tempColor = radioButtonsForTempColor.item(i).value;//選択されている色を取得する
 		}
 	}
+
 	let tempImage = new Image();
 	tempImage.src = `template/template_${tempColor}.jpg`;
 	tempImage.onload = (function () {
@@ -18,9 +20,11 @@ function loadTemp(id, scale) {
 		let canvas = document.getElementById(id);
 		let ctx = canvas.getContext('2d');
 
+		//キャンバス自体のサイズを設定する
 		canvas.width = tempImage.width;
 		canvas.height = tempImage.height;
 
+		//実際に表示されるキャンバスのサイズを指定する
 		canvas.style.width = Math.min(window.innerWidth * 0.9, 400) * scale + "px";
 		canvas.style.height = Math.min(window.innerWidth * 0.9, 400) * scale + "px";
 
@@ -31,10 +35,12 @@ function loadTemp(id, scale) {
 	});
 }
 
+//１つの整数をランダムに作る
 function randNum(max) {
 	return Math.floor(Math.random() * max);
 }
 
+//重複しない２つの数をランダムに作る
 function twoRandNum(max) {
 	let rand1 = Math.floor(Math.random() * max);
 	let rand2 = Math.floor(Math.random() * max);
@@ -44,6 +50,7 @@ function twoRandNum(max) {
 	return [rand1, rand2];
 }
 
+//パズルを生成（できるかどうかをチェック）
 function createPuzzle(canvas_id, answer) {
 	console.log(answer);
 	if (puzzleIndexMap.has(answer)) {//ユーザーが入力した答えが登録されているとき
@@ -105,6 +112,7 @@ function drawHint(canvas_id) {
 
 }
 
+//パズルの答えを書きこむ
 function drawAns(canvas_id) {
 	let canvas = document.getElementById(canvas_id);
 	let ctx = canvas.getContext('2d');
@@ -118,13 +126,14 @@ function drawAns(canvas_id) {
 
 }
 
+//キャンバスをクリアする
 function clearCanvas(id) {
 	let canvas = document.getElementById(id);
 	canvas.width = "0px";
 	canvas.height = "0px";
 }
 
-
+//パズル作成＆出力
 function createPuzzleProcess() {
 	let answer = document.getElementById("answerText").value;
 	puzzle = createPuzzle('puzzleCanvas', answer);
@@ -154,6 +163,7 @@ function createPuzzleProcess() {
 
 }
 
+//input fieldでユーザーがEnterを押したときにもパズル作成が実行されるように
 function enter(e) {
 	if (e === 13) {
 		createPuzzleProcess();
@@ -161,6 +171,7 @@ function enter(e) {
 	return false;
 }
 
+//生成したパズルの色を変更
 function colorChange(){
 	if(puzzle!=false){
 		const promise = new Promise(function (resolve, reject) {
