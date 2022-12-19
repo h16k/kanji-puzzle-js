@@ -52,7 +52,6 @@ function twoRandNum(max) {
 
 //パズルを生成（できるかどうかをチェック）
 function createPuzzle(canvas_id, answer) {
-	console.log(answer);
 	if (puzzleIndexMap.has(answer)) {//ユーザーが入力した答えが登録されているとき
 		let puzzlePieces = puzzleList[puzzleIndexMap.get(answer)];
 		leftAndLeftUp = [];
