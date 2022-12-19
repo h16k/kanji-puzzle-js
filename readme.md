@@ -1,6 +1,8 @@
 ---
 marp: true
 ---
+# [ここから遊べます](https://h16k.github.io/kanji-puzzle-js/)
+---
 - [JavaScript入門](#javascript入門)
   - [漢字パズル生成ツールを作ろう](#漢字パズル生成ツールを作ろう)
 - [環境](#環境)
