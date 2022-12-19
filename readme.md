@@ -3,18 +3,40 @@ marp: true
 ---
 # [ここから遊べます](https://h16k.github.io/kanji-puzzle-js/)
 ---
-- [JavaScript入門](#javascript入門)
-  - [漢字パズル生成ツールを作ろう](#漢字パズル生成ツールを作ろう)
+# 目次
+
+- [ここから遊べます](#ここから遊べます)
+- [HTML\&CSS\&JavaScript入門](#htmlcssjavascript入門)
+	- [漢字パズル生成ツールを作ろう](#漢字パズル生成ツールを作ろう)
+- [HTMLタグ速習](#htmlタグ速習)
+- [```<h1>見出し１</h1>```](#h1見出し１h1)
+	- [```<h2>見出し２</h2>```](#h2見出し２h2)
+		- [```<h3>見出し３</h3>```](#h3見出し３h3)
+			- [```<h4>見出し４</h4>```](#h4見出し４h4)
 - [環境](#環境)
-  - [VSCodeを想定](#vscodeを想定)
+	- [VSCodeを想定](#vscodeを想定)
 - [HTMLの雛形を作成する](#htmlの雛形を作成する)
 - [HTMLのPreviewを表示する](#htmlのpreviewを表示する)
-  - [拡張機能「HTML Preview」をインストールする](#拡張機能html-previewをインストールする)
-  - [方法１](#方法１)
-  - [方法２](#方法２)
-- [HTMLからjsファイルを読み込むタグ](#htmlからjsファイルを読み込むタグ)
-  - [****](#)
-
+	- [拡張機能「HTML Preview」をインストールする](#拡張機能html-previewをインストールする)
+	- [方法１](#方法１)
+	- [方法２](#方法２)
+- [HTMLからcssファイルを読み込む](#htmlからcssファイルを読み込む)
+	- [**```<link rel="stylesheet" href = "~~~.css">```**](#link-relstylesheet-href--css)
+- [HTMLからjsファイルを読み込む](#htmlからjsファイルを読み込む)
+	- [**```<script src="">```**](#script-src)
+- [文字列の中に変数を埋め込む①](#文字列の中に変数を埋め込む)
+- [文字列の中に変数を埋め込む②](#文字列の中に変数を埋め込む-1)
+- [Math](#math)
+	- [最大値・最小値を求める](#最大値最小値を求める)
+	- [０から１までの乱数を生成する](#０から１までの乱数を生成する)
+	- [整数に丸める](#整数に丸める)
+- [文字列を特定の文字で分割するsplit](#文字列を特定の文字で分割するsplit)
+- [canvas](#canvas)
+- [push](#push)
+- [配列の一部を切り出す](#配列の一部を切り出す)
+	- [**```.slice()```**](#slice)
+- [map](#map)
+- [setTimeout](#settimeout)
 
 ---
 # HTML&CSS&JavaScript入門
@@ -28,8 +50,6 @@ marp: true
 ```<p>平文</p>```
 
 - ```<li>リスト</li>```
-
-
 ---
 # 環境
 ## VSCodeを想定
@@ -104,22 +124,6 @@ output：
 Hello, my name is Taro.
 ```
 ---
-# Math
-## 最大値・最小値を求める
-```javascript
-Math.max();
-Math.min();
-```
-## ０から１までの乱数を生成する
-```javascript 
-Math.random();
-```
-
-## 整数に丸める
-```javascript
-Math.floor();
-```
----
 
 # 文字列の中に変数を埋め込む②
 1. 文字列は``` " " ```や``` ' ' ```で囲う
@@ -139,11 +143,30 @@ Hello, my name is Taro.
 Hello, my name is Taro.
 ```
 ---
+# Math
+## 最大値・最小値を求める
+```javascript
+Math.max();
+Math.min();
+```
+## ０から１までの乱数を生成する
+```javascript 
+Math.random();
+```
 
+## 整数に丸める
+```javascript
+Math.floor();
+```
+
+
+---
 # 文字列を特定の文字で分割するsplit
 ```javascript
 let puzzleStringDividedPerLine = stringPuzzles.split('\n');
 ```
+
+
 
 ---
 # canvas
@@ -153,7 +176,17 @@ let puzzleStringDividedPerLine = stringPuzzles.split('\n');
 
 ---
 # 配列の一部を切り出す
-# slice
+## **```.slice()```**
+```javascript
+let arrayA = [0,1,2,3,4,5,6,7,8,9];
+let result = arrayA.slice(2,4);
+console.log(result);
+```
+output
+```
+[2,3]
+```
+[【JavaScript入門】sliceで文字列や配列(Array)を切り抜く方法まとめ](https://www.sejuku.net/blog/25488)
 
 ---
 
@@ -161,7 +194,7 @@ let puzzleStringDividedPerLine = stringPuzzles.split('\n');
 
 
 ---
-# setTimeoutの罠
+# setTimeout
 
 
 ```javascript
@@ -205,7 +238,6 @@ function drawAns(canvas_id, puzzle) {
 
 [JavaScript　Mapオブジェクト](https://qiita.com/chihiro/items/9965cd7eca0380cf288c)
 [JavaScriptで特定の文字列が含まれているか調べるメソッドの使い方](https://qiita.com/shimajiri/items/a2d79d9aa1323da972f3)
-[【JavaScript入門】sliceで文字列や配列(Array)を切り抜く方法まとめ](https://www.sejuku.net/blog/25488)
 [【初心者向け】JavaScriptでHTMLの書き換え方法を解説！](https://webukatu.com/wordpress/blog/4649/#id)
 
 ---
