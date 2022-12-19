@@ -101,8 +101,24 @@ console.log(`Hello, my name is ${name}.`);
 output：
 Hello, my name is Taro.
 ```
-
 ---
+# Math
+## 最大値・最小値を求める
+```javascript
+Math.max();
+Math.min();
+```
+## ０から１までの乱数を生成する
+```javascript 
+Math.random();
+```
+
+## 整数に丸める
+```javascript
+Math.floor();
+```
+---
+
 # 文字列の中に変数を埋め込む②
 1. 文字列は``` " " ```や``` ' ' ```で囲う
 1. 変数は囲まない
@@ -128,8 +144,13 @@ let puzzleStringDividedPerLine = stringPuzzles.split('\n');
 ```
 
 ---
-# push
+# canvas
+
 ---
+# push
+
+---
+# 配列の一部を切り出す
 # slice
 
 ---
