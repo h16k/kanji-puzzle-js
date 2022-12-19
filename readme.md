@@ -1,7 +1,9 @@
 ---
 marp: true
 ---
-# [ここから遊べます](https://h16k.github.io/kanji-puzzle-js/)
+# HTML&CSS&JavaScript入門
+## 漢字パズル生成ツールを作ろう
+# [ここ](https://h16k.github.io/kanji-puzzle-js/) から遊べます
 ---
 # 目次
 
@@ -38,9 +40,6 @@ marp: true
 - [map](#map)
 - [setTimeout](#settimeout)
 
----
-# HTML&CSS&JavaScript入門
-## 漢字パズル生成ツールを作ろう
 ---
 # HTMLタグ速習
 # ```<h1>見出し１</h1>```
