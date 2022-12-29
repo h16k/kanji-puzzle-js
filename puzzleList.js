@@ -9486,12 +9486,3 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
 
 });
 
-if("aaa".includes("aa")){
-console.log("true");
-}else{
-    console.log("false");
-}
-// console.log();
-// console.log(puzzleList[puzzleList.length-1]);
-// console.log(puzzleIndexMap.get("ああ"));
-// console.log(puzzleList[4021]);
