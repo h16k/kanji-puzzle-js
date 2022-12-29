@@ -14,7 +14,7 @@ function loadTemp(id, scale) {
 		}
 	}
 
-	let tempImage = new Image();
+	let tempImage = Image();
 	tempImage.src = `template/template_${tempColor}.jpg`;
 	tempImage.onload = (function () {
 		//画像ロードが完了してからキャンバスの準備をする
