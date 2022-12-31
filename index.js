@@ -58,7 +58,7 @@ function createPuzzle(canvas_id, answer) {
 	if (puzzleIndexMap.has(answer)) {
 
 		//その答えに関するパズルのヒント候補を取得する
-		let puzzlePieces = puzzleList[puzzleIndexMap.get(answer)];
+		let puzzlePieces = hintList[puzzleIndexMap.get(answer)];
 		
 		//左と左上に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
 		leftAndLeftUp = [];
@@ -70,7 +70,7 @@ function createPuzzle(canvas_id, answer) {
 		rightUp = [];
 
 
-		for (let i = 1; i < puzzlePieces.length; i++) {
+		for (let i = 0; i < puzzlePieces.length; i++) {
 			let hint = puzzlePieces[i];
 			//答えの１文字目を含むヒントは、左側に入るはず
 			if (hint.includes(answer[0])) {

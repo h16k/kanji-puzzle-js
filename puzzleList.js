@@ -9475,13 +9475,13 @@ const stringPuzzles = `哀楽 哀願 安楽 音楽 快楽 楽園 楽屋 楽観 �
 腕輪 右腕 花輪 競輪 五輪 後輪 左腕 指輪 車輪 手腕 首輪 前輪 駐輪 内輪 年輪 片腕 両腕 輪郭 腕前 腕力 `;
 
 
-let puzzleStringDividedPerLine = stringPuzzles.split('\n');
-let puzzleList = [];
-let puzzleIndexMap = new Map();
+const puzzleStringDividedPerLine = stringPuzzles.split('\n');
+const hintList = [];
+const puzzleIndexMap = new Map();
 
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
-    puzzleList.push(aPuzzle.slice(0,-1));
+    hintList.push(aPuzzle.slice(1,-1));
     puzzleIndexMap.set(aPuzzle[0], ind);
 
 });
