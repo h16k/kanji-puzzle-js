@@ -3,44 +3,245 @@ marp: true
 ---
 # HTML&CSS&JavaScript入門
 ## 漢字パズル生成ツールを作ろう
-# [ここ](https://h16k.github.io/kanji-puzzle-js/) から遊べます
+## ➡　[Demo](https://h16k.github.io/kanji-puzzle-js/) 
 ---
 # 目次
+---
+# HTML
+## index.html
+---
+# index.html (body)
+```html
+<body>
+    <h2>Kanji Puzzle Maker</h2>
 
-- [ここから遊べます](#ここから遊べます)
-- [HTML\&CSS\&JavaScript入門](#htmlcssjavascript入門)
-	- [漢字パズル生成ツールを作ろう](#漢字パズル生成ツールを作ろう)
-- [HTMLタグ速習](#htmlタグ速習)
-- [```<h1>見出し１</h1>```](#h1見出し１h1)
-	- [```<h2>見出し２</h2>```](#h2見出し２h2)
-		- [```<h3>見出し３</h3>```](#h3見出し３h3)
-			- [```<h4>見出し４</h4>```](#h4見出し４h4)
-- [環境](#環境)
-	- [VSCodeを想定](#vscodeを想定)
-- [HTMLの雛形を作成する](#htmlの雛形を作成する)
-- [HTMLのPreviewを表示する](#htmlのpreviewを表示する)
-	- [拡張機能「HTML Preview」をインストールする](#拡張機能html-previewをインストールする)
-	- [方法１](#方法１)
-	- [方法２](#方法２)
-- [HTMLからcssファイルを読み込む](#htmlからcssファイルを読み込む)
-	- [**```<link rel="stylesheet" href = "~~~.css">```**](#link-relstylesheet-href--css)
-- [HTMLからjsファイルを読み込む](#htmlからjsファイルを読み込む)
-	- [**```<script src="">```**](#script-src)
-- [文字列の中に変数を埋め込む①](#文字列の中に変数を埋め込む)
-- [文字列の中に変数を埋め込む②](#文字列の中に変数を埋め込む-1)
-- [Math](#math)
-	- [最大値・最小値を求める](#最大値最小値を求める)
-	- [０から１までの乱数を生成する](#０から１までの乱数を生成する)
-	- [整数に丸める](#整数に丸める)
-- [文字列を特定の文字で分割するsplit](#文字列を特定の文字で分割するsplit)
-- [canvas](#canvas)
-- [push](#push)
-- [配列の一部を切り出す](#配列の一部を切り出す)
-	- [**```.slice()```**](#slice)
-- [map](#map)
-- [setTimeout](#settimeout)
+
+    <input name="答え" type="text" id="answerText" placeholder="漢字２文字で入力" onkeypress="enter(event.keyCode);">
+    
+    <button onclick="createPuzzleProcess();"> 生成</button>
+    <br>
+    <input type="radio" id = "blue" name="tempColor" value="blue" checked onclick="colorChange();">
+        <label for = "blue">Blue</label>
+    <input type="radio" id = "green" name="tempColor" value="green" onclick="colorChange();">
+        <label for = "green">Green</label>
+    <input type="radio" id = "orange" name="tempColor" value="orange" onclick="colorChange();">
+        <label for = "orange">Orange</label>    
+    <input type="radio" id = "pink" name="tempColor" value="pink" onclick="colorChange();">
+        <label for = "pink">Pink</label>
+    
+    <h3 id="createResult"></h3>
+    
+    <p id="note"></p>
+
+    <canvas id="puzzleCanvas"></canvas>
+    <canvas id="answerCanvas"></canvas>
+</body>
+```
+---
+## アプリ名
+```html
+<h2>Kanji Puzzle Maker</h2>
+```
+- 見出しの部分
+---
+## 答えとなる熟語を入力する場所
+```html
+<input name="答え" type="text" id="answerText" placeholder="漢字２文字で入力" onkeypress="enter(event.keyCode);">
+```
+- `<input>`は入力フォームを作成するタグ
+- `name`は`input`タグの名前
+- `type`は入力するデータの種類
+- `id`はタグを一意に識別できる名前
+- `placeholder`は何も入力していないときにうっすら表示されるテキスト
+- `onkeypress`で、この入力フォームの中で何かキーが押されたときの処理を指定
+  - ここでは`enter`という関数を呼び出している
+    - 引数は「押したキー（のコード）」
+---
+## パズル生成ボタン
+```html
+<button onclick="createPuzzleProcess();">生成</button>
+```
+- `<button></button>`はボタンを作成するタグ
+- タグの間にボタンに表示するテキストを書く
+- `onclick`で、このボタンが押されたときに行う処理を指定
+  - ここでは、`createPuzzleProcess()`を実行
+
+```html
+<br>
+```
+- 改行
+---
+## 色選択・変更ボタン
+```html
+<input type="radio" id = "blue" name="tempColor" value="blue" checked onclick="colorChange();">
+<label for = "blue">Blue</label>
+<input type="radio" id = "green" name="tempColor" value="green" onclick="colorChange();">
+<label for = "green">Green</label>
+---略---
+```
+- `<input>`で`type="radio"`にすることで、ラジオボタンを作成できる
+- `value`でこのボタンが選択されているときに何という値として扱うかを指定
+- `checked`をつけると最初から選択状態になる
+- `name`が同じラジオボタンは1つのグループ扱いとなる
+  - ユーザーはこの中から１つしか選択できない
+- `<label>`でinputタグにラベルを付ける
+  - `for = "blue"`だったら`id="blue"`のinputタグと紐づく
+  - ○の横にblueなどと表示されるようになる
+---
+## パズル生成結果のお知らせ
+```html
+<h3 id="createResult"></h3>
+
+<p id="note"></p>
+```
+- `<h3></h3>`で見出し3（３番目に大きい見出し）を作成
+  - 最初の状態では何も表示するものがない
+    - あとでパズルの生成結果に応じてテキストが入ることになる
+    - `id`を手掛かりに
+- `<p></p>`で段落を作成
+  - 最初の状態では何も表示するものがない
+    - あとでパズルの生成結果に応じてテキストが入ることになる
+    - `id`を手掛かりに
+---
+## 生成したパズル画像を表示する場所
+```html
+<canvas id="puzzleCanvas"></canvas>
+<canvas id="answerCanvas"></canvas>
+```
+- `<canvas></canvas>`で図を表示する場所を作成できる
+  - 最初の状態では何も表示するものがない
+    - あとでパズルの生成結果に応じてパズルの画像が入ることになる
+    - `id`を手掛かりに
+---
+# Javascript
+## puzzleList.js
+---
+## パズル生成のためのデータ
+```javascript
+const stringPuzzles = `哀楽 哀願 安楽 音楽 快楽 楽園 楽屋 ---略---';
+```
+
+- 文字列を`stringPuzzles`に格納
+- 文字列は、１行ごとに↓
+  - 先頭に「答えとなる熟語」　
+  - その後ろに「答えの１文字目or２文字目を使った熟語」が並んでいる
+  - 上の例では「哀楽」が答えで、哀や楽を使った熟語が後ろに並んでいる
+    - 熟語は常用漢字を使ったもののみ
+      - 難易度が高くなりすぎないように
+---
+
+## パズル生成のためのデータを１行ごとに分割
+```javascript
+const puzzleStringDividedPerLine = stringPuzzles.split('\n');
+```
+- `stringPuzzles`に格納されている文字列を１行ごとに分割し、`puzzleStringDividedPerLine`に格納
+  - `.split()`で文字列を分割できる
+    - `()`にはどこで分割するかを指定
+      - ここでは改行を表す`\n`で分割
+      - ほかにも、例えば`split(',')`にすればカンマで分割される
+  - `puzzleStringDividedPerLine`はリストになっている
+    - `["哀楽 哀願 安楽 音楽 快楽 楽園 ...","悪意 悪化 悪寒 悪気 悪口 ...", ...] `
+    - というイメージ
 
 ---
+## 後で使うリストとマップを用意
+```javascript
+const hintList = [];
+const puzzleIndexMap = new Map();
+```
+- `hintList`と`puzzleIndexMap`を用意しておく
+  - `hintList`は配列
+  - `puzzleIndexMap`はマップ
+	- マップはキー（key）とそれに対応する値（value）を対応させて保持するオブジェクト
+	- [参考](https://camp.trainocate.co.jp/magazine/javascript-map/)
+
+---
+## パズルのデータを使いやすい形に整理する① 繰り返し処理
+```javascript
+puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
+	------------略----------
+});
+```
+- `配列名.forEach( コールバック関数(要素の値, 要素のインデックス) )`
+  - 配列の先頭から要素を１つずつ呼び出して`コールバック関数`を実行
+    - 要素の値は`要素の値`に、
+    - 要素のインデックスは`要素のインデックス`に渡される
+  - 今回の場合
+    - `puzzleStringDividedPerLine`の要素を１つずつ取り出しながら、要素を`puzzleString`に、要素のインデックスを`ind`に渡して`function`を実行
+
+---
+## パズルのデータを使いやすい形に整理する② 繰り返しの中身①
+```javascript
+puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
+    let aPuzzle = puzzleString.split(' ');
+    hintList.push(aPuzzle.slice(1,-1));
+    puzzleIndexMap.set(aPuzzle[0], ind);
+
+});
+```
+- `let aPuzzle = puzzleString.split(' ');`の部分
+  - puzzleStringの中身は、 `["哀楽 哀願 安楽 音楽 快楽 楽園 ...","悪意 悪化 悪寒 悪気 悪口 ...", ...] `のようなリストの要素
+    - `"哀楽 哀願 安楽 音楽 快楽 楽園 ..."`というような感じ
+  -  これを空白で分割し、`["哀楽", "哀願", "安楽", "音楽", "快楽", "楽園" ...]`というようなリストを作成
+---
+
+## パズルのデータを使いやすい形に整理する③ 繰り返しの中身②
+```javascript
+puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
+    let aPuzzle = puzzleString.split(' ');
+    hintList.push(aPuzzle.slice(1,-1));
+    puzzleIndexMap.set(aPuzzle[0], ind);
+
+});
+```
+- `hintList.push(aPuzzle.slice(1,-1));`の部分
+  -  `aPuzzle`は、`["哀楽", "哀願", "安楽", "音楽", "快楽", ...]`という感じ
+  -  これ（の一部）を`hintList`に追加（`配列名.push()`：`()`内を配列に追加）
+     -  `hintList`は`[["哀願", "安楽", "音楽", "快楽", "楽園" ...],["悪化", "悪寒", "悪気", "悪口", ...]]`というような二次元の配列に
+     -  `aPuzzle.slice()`によって配列の一部を取り出す（詳しくは後ほど）
+---
+
+## パズルのデータを使いやすい形に整理する③ 繰り返しの中身③
+```javascript
+puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
+    let aPuzzle = puzzleString.split(' ');
+    hintList.push(aPuzzle.slice(1,-1));
+    puzzleIndexMap.set(aPuzzle[0], ind);
+
+});
+```
+- `puzzleIndexMap.set(aPuzzle[0], ind);`の部分
+  - `マップ名.set(キー,値)`で、マップにキーと値を登録
+  - ここでは`puzzleIndexMap`に以下を登録
+    - **キー：**`aPuzzle`の先頭の要素
+      - `aPuzzle`は、`["哀楽", "哀願", "安楽", "音楽", "快楽", ...]`という感じなので、先頭の要素＝答えとなる熟語
+    - **値：**`ind`
+      - こうすることで、キーの熟語が答えになるパズルを作るときに、`hintList`の何番目を見たらいいかがわかるようになる
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# aaa
 # HTMLタグ速習
 # ```<h1>見出し１</h1>```
 ## ```<h2>見出し２</h2>```
