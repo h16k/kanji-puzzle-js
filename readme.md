@@ -6,11 +6,35 @@ marp: true
 ## ➡　[Demo](https://h16k.github.io/kanji-puzzle-js/) 
 ---
 # 目次
+- [HTML\&CSS\&JavaScript入門](#htmlcssjavascript入門)
+	- [漢字パズル生成ツールを作ろう](#漢字パズル生成ツールを作ろう)
+	- [➡　Demo](#demo)
+- [目次](#目次)
+- [HTML](#html)
+	- [index.html](#indexhtml)
+		- [index.html (body)](#indexhtml-body)
+		- [アプリ名](#アプリ名)
+		- [答えとなる熟語を入力する場所](#答えとなる熟語を入力する場所)
+		- [パズル生成ボタン](#パズル生成ボタン)
+		- [色選択・変更ボタン](#色選択変更ボタン)
+		- [パズル生成結果のお知らせ](#パズル生成結果のお知らせ)
+		- [生成したパズル画像を表示する場所](#生成したパズル画像を表示する場所)
+- [Javascript](#javascript)
+	- [puzzleList.js](#puzzlelistjs)
+		- [パズル生成のためのデータ](#パズル生成のためのデータ)
+		- [パズル生成のためのデータを１行ごとに分割](#パズル生成のためのデータを１行ごとに分割)
+		- [後で使うリストとマップを用意](#後で使うリストとマップを用意)
+		- [パズルのデータを使いやすい形に整理する① 繰り返し処理](#パズルのデータを使いやすい形に整理する-繰り返し処理)
+		- [パズルのデータを使いやすい形に整理する② 繰り返しの中身①](#パズルのデータを使いやすい形に整理する-繰り返しの中身)
+		- [パズルのデータを使いやすい形に整理する③ 繰り返しの中身②](#パズルのデータを使いやすい形に整理する-繰り返しの中身-1)
+		- [パズルのデータを使いやすい形に整理する③ 繰り返しの中身③](#パズルのデータを使いやすい形に整理する-繰り返しの中身-2)
+
+
 ---
 # HTML
 ## index.html
 ---
-# index.html (body)
+### index.html (body)
 ```html
 <body>
     <h2>Kanji Puzzle Maker</h2>
@@ -38,13 +62,13 @@ marp: true
 </body>
 ```
 ---
-## アプリ名
+### アプリ名
 ```html
 <h2>Kanji Puzzle Maker</h2>
 ```
 - 見出しの部分
 ---
-## 答えとなる熟語を入力する場所
+### 答えとなる熟語を入力する場所
 ```html
 <input name="答え" type="text" id="answerText" placeholder="漢字２文字で入力" onkeypress="enter(event.keyCode);">
 ```
@@ -57,7 +81,7 @@ marp: true
   - ここでは`enter`という関数を呼び出している
     - 引数は「押したキー（のコード）」
 ---
-## パズル生成ボタン
+### パズル生成ボタン
 ```html
 <button onclick="createPuzzleProcess();">生成</button>
 ```
@@ -71,7 +95,7 @@ marp: true
 ```
 - 改行
 ---
-## 色選択・変更ボタン
+### 色選択・変更ボタン
 ```html
 <input type="radio" id = "blue" name="tempColor" value="blue" checked onclick="colorChange();">
 <label for = "blue">Blue</label>
@@ -88,7 +112,7 @@ marp: true
   - `for = "blue"`だったら`id="blue"`のinputタグと紐づく
   - ○の横にblueなどと表示されるようになる
 ---
-## パズル生成結果のお知らせ
+### パズル生成結果のお知らせ
 ```html
 <h3 id="createResult"></h3>
 
@@ -103,7 +127,7 @@ marp: true
     - あとでパズルの生成結果に応じてテキストが入ることになる
     - `id`を手掛かりに
 ---
-## 生成したパズル画像を表示する場所
+### 生成したパズル画像を表示する場所
 ```html
 <canvas id="puzzleCanvas"></canvas>
 <canvas id="answerCanvas"></canvas>
@@ -116,7 +140,7 @@ marp: true
 # Javascript
 ## puzzleList.js
 ---
-## パズル生成のためのデータ
+### パズル生成のためのデータ
 ```javascript
 const stringPuzzles = `哀楽 哀願 安楽 音楽 快楽 楽園 楽屋 ---略---';
 ```
@@ -130,7 +154,7 @@ const stringPuzzles = `哀楽 哀願 安楽 音楽 快楽 楽園 楽屋 ---略--
       - 難易度が高くなりすぎないように
 ---
 
-## パズル生成のためのデータを１行ごとに分割
+### パズル生成のためのデータを１行ごとに分割
 ```javascript
 const puzzleStringDividedPerLine = stringPuzzles.split('\n');
 ```
@@ -144,7 +168,7 @@ const puzzleStringDividedPerLine = stringPuzzles.split('\n');
     - というイメージ
 
 ---
-## 後で使うリストとマップを用意
+### 後で使うリストとマップを用意
 ```javascript
 const hintList = [];
 const puzzleIndexMap = new Map();
@@ -156,7 +180,7 @@ const puzzleIndexMap = new Map();
 	- [参考](https://camp.trainocate.co.jp/magazine/javascript-map/)
 
 ---
-## パズルのデータを使いやすい形に整理する① 繰り返し処理
+### パズルのデータを使いやすい形に整理する① 繰り返し処理
 ```javascript
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
 	------------略----------
@@ -170,7 +194,7 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     - `puzzleStringDividedPerLine`の要素を１つずつ取り出しながら、要素を`puzzleString`に、要素のインデックスを`ind`に渡して`function`を実行
 
 ---
-## パズルのデータを使いやすい形に整理する② 繰り返しの中身①
+### パズルのデータを使いやすい形に整理する② 繰り返しの中身①
 ```javascript
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
@@ -185,7 +209,7 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
   -  これを空白で分割し、`["哀楽", "哀願", "安楽", "音楽", "快楽", "楽園" ...]`というようなリストを作成
 ---
 
-## パズルのデータを使いやすい形に整理する③ 繰り返しの中身②
+### パズルのデータを使いやすい形に整理する③ 繰り返しの中身②
 ```javascript
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
@@ -201,7 +225,7 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
      -  `aPuzzle.slice()`によって配列の一部を取り出す（詳しくは後ほど）
 ---
 
-## パズルのデータを使いやすい形に整理する③ 繰り返しの中身③
+### パズルのデータを使いやすい形に整理する③ 繰り返しの中身③
 ```javascript
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
@@ -241,7 +265,7 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
 
 
 
-# aaa
+<!-- # aaa
 # HTMLタグ速習
 # ```<h1>見出し１</h1>```
 ## ```<h2>見出し２</h2>```
@@ -475,4 +499,4 @@ function drawAns(canvas_id, puzzle) {
 [How can I use custom fonts in an HTML5 Canvas element?](https://stackoverflow.com/questions/2608022/how-can-i-use-custom-fonts-in-an-html5-canvas-element)
 
 
-
+ -->
