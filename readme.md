@@ -12,7 +12,7 @@ marp: true
 - [目次](#目次)
 - [HTML](#html)
 	- [index.html](#indexhtml)
-		- [index.html (body)](#indexhtml-body)
+		- [body全体](#body全体)
 		- [アプリ名](#アプリ名)
 		- [答えとなる熟語を入力する場所](#答えとなる熟語を入力する場所)
 		- [パズル生成ボタン](#パズル生成ボタン)
@@ -29,16 +29,15 @@ marp: true
 		- [パズルのデータを使いやすい形に整理する③ 繰り返しの中身2](#パズルのデータを使いやすい形に整理する-繰り返しの中身2)
 		- [パズルのデータを使いやすい形に整理する③ 繰り返しの中身2.5](#パズルのデータを使いやすい形に整理する-繰り返しの中身25)
 		- [パズルのデータを使いやすい形に整理する④ 繰り返しの中身3](#パズルのデータを使いやすい形に整理する-繰り返しの中身3)
-- [Javascript](#javascript-1)
 	- [index.js](#indexjs)
-	- [index.js](#indexjs-1)
 		- [コメントを読みつつ解読してみよう！](#コメントを読みつつ解読してみよう)
+
 
 ---
 # HTML
 ## index.html
 ---
-### index.html (body)
+### body全体
 ```html
 <body>
     <h2>Kanji Puzzle Maker</h2>
@@ -255,9 +254,6 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     - **値：**`ind`
       - こうすることで、キーの熟語が答えになるパズルを作るときに、`hintList`の何番目を見たらいいかがわかるようになる
 
----
-# Javascript
-## index.js
 ---
 ## index.js
 ### コメントを読みつつ解読してみよう！
