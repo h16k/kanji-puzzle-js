@@ -194,7 +194,7 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     - `puzzleStringDividedPerLine`の要素を１つずつ取り出しながら、要素を`puzzleString`に、要素のインデックスを`ind`に渡して`function`を実行
 
 ---
-### パズルのデータを使いやすい形に整理する② 繰り返しの中身①
+### パズルのデータを使いやすい形に整理する② 繰り返しの中身1
 ```javascript
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
@@ -209,7 +209,7 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
   -  これを空白で分割し、`["哀楽", "哀願", "安楽", "音楽", "快楽", "楽園" ...]`というようなリストを作成
 ---
 
-### パズルのデータを使いやすい形に整理する③ 繰り返しの中身②
+### パズルのデータを使いやすい形に整理する③ 繰り返しの中身2
 ```javascript
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
@@ -222,10 +222,19 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
   -  `aPuzzle`は、`["哀楽", "哀願", "安楽", "音楽", "快楽", ...]`という感じ
   -  これ（の一部）を`hintList`に追加（`配列名.push()`：`()`内を配列に追加）
      -  `hintList`は`[["哀願", "安楽", "音楽", "快楽", "楽園" ...],["悪化", "悪寒", "悪気", "悪口", ...]]`というような二次元の配列に
-     -  `aPuzzle.slice()`によって配列の一部を取り出す（詳しくは後ほど）
+     -  `aPuzzle.slice()`によって配列の一部を取り出す（次ページ）
 ---
-
-### パズルのデータを使いやすい形に整理する③ 繰り返しの中身③
+### パズルのデータを使いやすい形に整理する③ 繰り返しの中身2.5
+-  `aPuzzle.slice(1,-1)`の部分
+   -  `配列名.slice(x,y)`で配列のxからy-1番目の要素までを取得
+      -  例えば`[0,1,2,3,4,5]`の配列`exam`に対して`exam.slice(1,3)`を適用すれば`[1,2]`が取得できる(`[1,2,3]`ではない)
+	- つまりここでは`aPuzzle`の先頭と末尾の要素を除いた配列を取得している
+      - 先頭は答えとなる熟語→`hintList`には不要
+      - 末尾は、実は`aPuzzle`の末尾の要素が`""`になっている
+        - パズルのデータを作るときにミスりました。謝罪。
+        - よって、いらない。
+---
+### パズルのデータを使いやすい形に整理する③ 繰り返しの中身3
 ```javascript
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
@@ -243,8 +252,12 @@ puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
       - こうすることで、キーの熟語が答えになるパズルを作るときに、`hintList`の何番目を見たらいいかがわかるようになる
 
 ---
-
-
+# Javascript
+## index.js
+---
+## index.js
+### コメントを読みつつ解読してみよう！
+（後日解説する予定がないこともない）
 
 
 
