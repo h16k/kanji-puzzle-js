@@ -59,7 +59,7 @@ function createPuzzle(canvas_id, answer) {
 
 		//その答えに関するパズルのヒント候補を取得する
 		let puzzlePieces = hintList[puzzleIndexMap.get(answer)];
-		
+
 		//左と左上に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
 		leftAndLeftUp = [];
 		//左下に入るヒント（「答えの１文字目＋ヒント」で熟語になる）の候補
@@ -80,7 +80,7 @@ function createPuzzle(canvas_id, answer) {
 					leftAndLeftUp.push(hint);
 				}
 
-			//答えの２文字目を含むヒントは、右側に入るはず
+				//答えの２文字目を含むヒントは、右側に入るはず
 			} else {
 				if (answer[1] === hint[1]) {
 					rightUp.push(hint);
@@ -93,7 +93,7 @@ function createPuzzle(canvas_id, answer) {
 		if ((leftAndLeftUp.length >= 2) && (rightAndRightDown.length >= 2) && (rightUp.length > 0) && (leftDown.length > 0)) {
 			let randL = twoRandNum(leftAndLeftUp.length);
 			let randR = twoRandNum(rightAndRightDown.length);
-			
+
 			//出力するパズルを決定。毎回シャッフルされる
 			//[答え,左hint,左上hint,右上hint,右hint,右下hint,左下hint]
 			//答えは2文字、hintは1文字
@@ -119,12 +119,12 @@ function createPuzzle(canvas_id, answer) {
 function drawHint(canvas_id) {
 	let canvas = document.getElementById(canvas_id);
 	let ctx = canvas.getContext('2d');
-	
+
 	//各文字の座標
 	let posi = [[135, 1610], [930, 830], [1750, 830], [2545, 1610], [1750, 2400], [930, 2400]]
 
 	//文字のスタイル（大きさ、フォント）を指定
-	ctx.font = '320px ZenMaruGothicRegular'; 
+	ctx.font = '320px ZenMaruGothicRegular';
 	//文字の色を指定
 	ctx.fillStyle = '#000000';
 
@@ -139,7 +139,7 @@ function drawHint(canvas_id) {
 function drawAns(canvas_id) {
 	let canvas = document.getElementById(canvas_id);
 	let ctx = canvas.getContext('2d');
-	
+
 	//各文字の座標
 	let posi = [[840, 1690], [1645, 1690]]
 
@@ -188,7 +188,7 @@ function createPuzzleProcess() {
 			drawAns('answerCanvas');
 
 		});
-	//パズルができなかったなら、キャンバスを消去し、アナウンス
+		//パズルができなかったなら、キャンバスを消去し、アナウンス
 	} else {
 		clearCanvas('puzzleCanvas');
 		clearCanvas('answerCanvas');
@@ -209,10 +209,10 @@ function enter(e) {
 }
 
 //生成したパズルの色を変更
-function colorChange(){
+function colorChange() {
 	//パズルを生成した後に色変更をした場合、
 	//答えやヒントはそのままで色だけ変える
-	if(puzzle!=false){
+	if (puzzle != false) {
 		const promise = new Promise(function (resolve, reject) {
 			loadTemp("puzzleCanvas", 1);
 			loadTemp("answerCanvas", 0.7);
@@ -227,5 +227,30 @@ function colorChange(){
 		});
 	}
 
-	
+
+}
+
+//簡易的な重複チェック機能
+function dupCheck() {
+	let answer = [];
+	for (let i = 1; i < vocabList.length; i++) {
+		let j = vocabList[i];
+		if (vocabSet.has(puzzle[1] + j[0]) && (puzzle[1] + j[0]) != j) {
+			if (vocabSet.has(puzzle[2] + j[0]) && (puzzle[2] + j[0]) != j) {
+				if (vocabSet.has(puzzle[3] + j[1]) && (puzzle[3] + j[1]) != j){
+					if (vocabSet.has(j[1] + puzzle[4]) && (j[1] + puzzle[4]) != j){
+						if (vocabSet.has(j[1] + puzzle[5]) && (j[1] + puzzle[5]) != j){
+							if (vocabSet.has(j[0] + puzzle[6]) && (j[0] + puzzle[6]) != j){
+								
+								answer.push(j);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	document.getElementById('dupCheckResult').innerText = answer;
+
 }
