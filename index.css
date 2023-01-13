@@ -47,3 +47,7 @@ button:active {
 canvas{
   border-radius: 10%;
 }
+
+.hidden{
+  display: none;
+}

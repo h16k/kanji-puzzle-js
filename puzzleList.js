@@ -9476,12 +9476,14 @@ const stringPuzzles = `哀楽 哀願 安楽 音楽 快楽 楽園 楽屋 楽観 �
 
 
 const puzzleStringDividedPerLine = stringPuzzles.split('\n');
-const hintList = [];
+const ansArray = [];
+const hintArray = [];
 const puzzleIndexMap = new Map();
 
 puzzleStringDividedPerLine.forEach(function(puzzleString, ind){
     let aPuzzle = puzzleString.split(' ');
-    hintList.push(aPuzzle.slice(1,-1));
+    hintArray.push(aPuzzle.slice(1,-1));
+    ansArray.push(aPuzzle[0]);
     puzzleIndexMap.set(aPuzzle[0], ind);
 
 });

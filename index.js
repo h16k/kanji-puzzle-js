@@ -1,5 +1,6 @@
 let puzzle = [];
 let color = ["blue", "green", "orange","pink"];
+let answer = ""
 
 //パズルのテンプレートを読み込む
 function loadTemp(id, scale) {
@@ -53,13 +54,21 @@ function twoRandNum(max) {
 }
 
 //パズルを生成（できるかどうかをチェック）
-function createPuzzle(canvas_id, answer) {
+function createPuzzle(canvas_id, order) {
+
+	if(order == ""){
+		answer = ansArray[randNum(ansArray.length)];
+		document.getElementById("isRandom").classList.remove('hidden');
+	}else{
+		answer = order;
+		document.getElementById("isRandom").classList.add('hidden');
+	}
 
 	//ユーザーが入力した答えが登録されているとき
 	if (puzzleIndexMap.has(answer)) {
 
 		//その答えに関するパズルのヒント候補を取得する
-		let puzzlePieces = hintList[puzzleIndexMap.get(answer)];
+		let puzzlePieces = hintArray[puzzleIndexMap.get(answer)];
 
 		//左と左上に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
 		leftAndLeftUp = [];
@@ -167,8 +176,8 @@ function clearCanvas(id) {
 
 //パズル作成＆出力
 function createPuzzleProcess() {
-	let answer = document.getElementById("answerText").value;
-	puzzle = createPuzzle('puzzleCanvas', answer);
+	let order = document.getElementById("answerText").value;
+	puzzle = createPuzzle('puzzleCanvas', order);
 
 	//ちゃんとパズルができているなら、パズル画像を出力
 	if (puzzle != false) {
