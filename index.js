@@ -242,7 +242,7 @@ function dupCheck() {
 						if (vocabSet.has(j[1] + puzzle[5]) && (j[1] + puzzle[5]) != j){
 							if (vocabSet.has(j[0] + puzzle[6]) && (j[0] + puzzle[6]) != j){
 								
-								answer.push(j);
+								answers.push(j);
 							}
 						}
 					}
