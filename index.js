@@ -232,7 +232,7 @@ function colorChange() {
 
 //簡易的な重複チェック機能
 function dupCheck() {
-	let answer = [];
+	let answers = [];
 	for (let i = 1; i < vocabList.length; i++) {
 		let j = vocabList[i];
 		if (vocabSet.has(puzzle[1] + j[0]) && (puzzle[1] + j[0]) != j) {
@@ -251,6 +251,6 @@ function dupCheck() {
 		}
 	}
 
-	document.getElementById('dupCheckResult').innerText = answer;
+	document.getElementById('dupCheckResult').innerText = answers;
 
 }
