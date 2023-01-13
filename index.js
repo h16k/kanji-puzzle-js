@@ -1,4 +1,6 @@
 let puzzle = [];
+let color = ["blue", "green", "orange","pink"];
+
 
 //パズルのテンプレートを読み込む
 function loadTemp(id, scale) {
@@ -202,7 +204,7 @@ function createPuzzleProcess() {
 
 //input fieldでユーザーがEnterを押したときにもパズル作成が実行されるように
 function enter(e) {
-	if (e === 13) {
+	if (e === 'Enter') {
 		createPuzzleProcess();
 	}
 	return false;

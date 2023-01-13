@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <script src="puzzleList.js"></script>
-<script src = "for_dup_check.js"></script>
+<script src="for_dup_check.js"></script>
 
 <script src="index.js"></script>
 
@@ -18,33 +18,39 @@
     <h2>Kanji Puzzle Maker</h2>
 
 
-    <input name="答え" type="text" id="answerText" placeholder="漢字２文字で入力" onkeypress="enter(event.keyCode);">
-    
-    <button onclick="createPuzzleProcess();"> 生成</button>
+    <input name="答え" type="text" id="answerText" placeholder="漢字２文字で入力" onkeypress="enter(event.key);">
+
+    <button onclick="createPuzzleProcess();">生成</button>
     <br>
-    <input type="radio" id = "blue" name="tempColor" value="blue" checked onclick="colorChange();">
-        <label for = "blue">Blue</label>
-    <input type="radio" id = "green" name="tempColor" value="green" onclick="colorChange();">
-        <label for = "green">Green</label>
-    <input type="radio" id = "orange" name="tempColor" value="orange" onclick="colorChange();">
-        <label for = "orange">Orange</label>    
-    <input type="radio" id = "pink" name="tempColor" value="pink" onclick="colorChange();">
-        <label for = "pink">Pink</label>
-    
+    <p id="colorRadioButton"></p>
+
     <h3 id="createResult"></h3>
-    
+
     <p id="note"></p>
 
 
-    <!-- <div id="imageContainer"> -->
+
     <canvas id="puzzleCanvas"></canvas>
-    <!-- </div> -->
+
     <canvas id="answerCanvas"></canvas>
-    
+
     <p></p>
     <button onclick="dupCheck();">別解チェック</button>
     <h3 id="dupCheckResult"></h3>
-    
+    <script>
+        for (let i in color) {
+            let colorRadioButton = document.getElementById('colorRadioButton');
+            colorRadioButton.innerHTML += 
+            `<input type="radio" 
+                id = "${color[i]}" 
+                name="tempColor" 
+                value="${color[i]}" 
+                onclick="colorChange();">
+			<label for = "${color[i]}">${color[i]}</label>`;
+        };
+        let defaultColor = document.getElementById(`${color[0]}`) ;
+        defaultColor.checked = true ;
+    </script>
 
 </body>
 
