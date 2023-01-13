@@ -1,7 +1,6 @@
 let puzzle = [];
 let color = ["blue", "green", "orange","pink"];
 
-
 //パズルのテンプレートを読み込む
 function loadTemp(id, scale) {
 	//画像を読み込んでImageオブジェクトを作成する
