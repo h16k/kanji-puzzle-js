@@ -36,21 +36,6 @@
     <button onclick="dupCheck();">別解チェック</button>
     <h3 id="dupCheckResult"></h3>
 
-    <script>
-        for (let i in color) {
-            let colorRadioButton = document.getElementById('colorRadioButton');
-            colorRadioButton.innerHTML +=
-                `<input type="radio" 
-			id = "${color[i]}" 
-			name="tempColor" 
-			value="${color[i]}" 
-			onclick="colorChange();">
-		<label for = "${color[i]}">${color[i]}</label>`;
-        };
-
-        let defaultColor = document.getElementById(`${color[0]}`);
-        defaultColor.checked = true;
-    </script>
 </body>
 
 </html>

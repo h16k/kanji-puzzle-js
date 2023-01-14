@@ -1,23 +1,24 @@
 let puzzle = [];
-let color = ["blue", "green", "orange","pink"];
-let answer = ""
+let color = ["blue", "green", "orange", "pink"];
+let answer;
+
+function getTempColor() {
+	let radioButtonsForTempColor = document.getElementsByName('tempColor');
+
+	//選択されている色を取得する
+	for (let i in color) {
+		if (radioButtonsForTempColor.item(i).checked) {
+			return radioButtonsForTempColor.item(i).value;
+		}
+	}
+}
 
 //パズルのテンプレートを読み込む
 function loadTemp(id, scale) {
+
 	//画像を読み込んでImageオブジェクトを作成する
-	let radioButtonsForTempColor = document.getElementsByName('tempColor');
-	let lengthOfRadioButtons = radioButtonsForTempColor.length;
-	let tempColor = '';
-
-	//選択されている色を取得する
-	for (let i = 0; i < lengthOfRadioButtons; i++) {
-		if (radioButtonsForTempColor.item(i).checked) {
-			tempColor = radioButtonsForTempColor.item(i).value;
-		}
-	}
-
 	let tempImage = new Image();
-	tempImage.src = `template/template_${tempColor}.PNG`;
+	tempImage.src = `template/template_${getTempColor()}.PNG`;
 	tempImage.onload = (function () {
 		//画像ロードが完了してからキャンバスの準備をする
 		let canvas = document.getElementById(id);
@@ -45,83 +46,84 @@ function randNum(max) {
 
 //重複しない２つの数をランダムに作る
 function twoRandNum(max) {
-	let rand1 = Math.floor(Math.random() * max);
-	let rand2 = Math.floor(Math.random() * max);
-	while (rand1 === rand2) {
-		rand2 = Math.floor(Math.random() * max);
-	}
+	let rand1,rand2;
+	do {
+		rand1 = randNum(max);
+		rand2 = randNum(max);
+	} while (rand1 === rand2)
 	return [rand1, rand2];
 }
 
 //パズルを生成（できるかどうかをチェック）
 function createPuzzle(canvas_id, order) {
+	let isRandom = false;
 
-	if(order == ""){
+	if (order == "") {
+		isRandom = true;
 		answer = ansArray[randNum(ansArray.length)];
 		document.getElementById("isRandom").classList.remove('hidden');
-	}else{
+	} else{
 		answer = order;
 		document.getElementById("isRandom").classList.add('hidden');
+		if (!puzzleIndexMap.has(order)) return false; //ユーザーが入力した答えが登録されていないときは不可
 	}
 
-	//ユーザーが入力した答えが登録されているとき
-	if (puzzleIndexMap.has(answer)) {
+	//その答えに関するパズルのヒント候補を取得する
+	let puzzlePieces = hintArray[puzzleIndexMap.get(answer)];
 
-		//その答えに関するパズルのヒント候補を取得する
-		let puzzlePieces = hintArray[puzzleIndexMap.get(answer)];
-
-		//左と左上に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
-		leftAndLeftUp = [];
-		//左下に入るヒント（「答えの１文字目＋ヒント」で熟語になる）の候補
-		leftDown = [];
-		//右と右下に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
-		rightAndRightDown = [];
-		//右上に入るヒント（「答えの１文字目＋ヒント」で熟語になる）の候補
-		rightUp = [];
+	//左と左上に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
+	let leftAndLeftUp = [];
+	//左下に入るヒント（「答えの１文字目＋ヒント」で熟語になる）の候補
+	let leftDown = [];
+	//右と右下に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
+	let rightAndRightDown = [];
+	//右上に入るヒント（「答えの１文字目＋ヒント」で熟語になる）の候補
+	let rightUp = [];
 
 
-		for (let i = 0; i < puzzlePieces.length; i++) {
-			let hint = puzzlePieces[i];
-			//答えの１文字目を含むヒントは、左側に入るはず
-			if (hint.includes(answer[0])) {
-				if (answer[0] === hint[0]) {
-					leftDown.push(hint);
-				} else {
-					leftAndLeftUp.push(hint);
-				}
-
-				//答えの２文字目を含むヒントは、右側に入るはず
+	for (let i in puzzlePieces) {
+		let hint = puzzlePieces[i];
+		//答えの１文字目を含むヒントは、左側に入るはず
+		if (hint.includes(answer[0])) {
+			if (answer[0] === hint[0]) {
+				leftDown.push(hint);
 			} else {
-				if (answer[1] === hint[1]) {
-					rightUp.push(hint);
-				} else {
-					rightAndRightDown.push(hint);
-				}
+				leftAndLeftUp.push(hint);
+			}
+
+			//答えの２文字目を含むヒントは、右側に入るはず
+		} else {
+			if (answer[1] === hint[1]) {
+				rightUp.push(hint);
+			} else {
+				rightAndRightDown.push(hint);
 			}
 		}
-
-		if ((leftAndLeftUp.length >= 2) && (rightAndRightDown.length >= 2) && (rightUp.length > 0) && (leftDown.length > 0)) {
-			let randL = twoRandNum(leftAndLeftUp.length);
-			let randR = twoRandNum(rightAndRightDown.length);
-
-			//出力するパズルを決定。毎回シャッフルされる
-			//[答え,左hint,左上hint,右上hint,右hint,右下hint,左下hint]
-			//答えは2文字、hintは1文字
-			let puzzle = [
-				answer,
-				leftAndLeftUp[randL[0]][0],
-				leftAndLeftUp[randL[1]][0],
-				rightUp[randNum(rightUp.length)][0],
-				rightAndRightDown[randR[0]][1],
-				rightAndRightDown[randR[1]][1],
-				leftDown[randNum(leftDown.length)][1]
-			];
-
-			return puzzle;
-		}
 	}
-	return false;
 
+	if ((leftAndLeftUp.length >= 2) && (rightAndRightDown.length >= 2) && (rightUp.length > 0) && (leftDown.length > 0)) {
+		let randL = twoRandNum(leftAndLeftUp.length);
+		let randR = twoRandNum(rightAndRightDown.length);
+
+		//出力するパズルを決定。毎回シャッフルされる
+		//[答え,左hint,左上hint,右上hint,右hint,右下hint,左下hint]
+		//答えは2文字、hintは1文字
+		let puzzle = [
+			answer,
+			leftAndLeftUp[randL[0]][0],
+			leftAndLeftUp[randL[1]][0],
+			rightUp[randNum(rightUp.length)][0],
+			rightAndRightDown[randR[0]][1],
+			rightAndRightDown[randR[1]][1],
+			leftDown[randNum(leftDown.length)][1]
+		];
+
+		return puzzle;
+	}else if(isRandom){
+		return createPuzzle('puzzleCanvas', "");
+	}else{
+		return false;
+	}
 }
 
 
@@ -247,11 +249,11 @@ function dupCheck() {
 		let j = vocabList[i];
 		if (vocabSet.has(puzzle[1] + j[0]) && (puzzle[1] + j[0]) != j) {
 			if (vocabSet.has(puzzle[2] + j[0]) && (puzzle[2] + j[0]) != j) {
-				if (vocabSet.has(puzzle[3] + j[1]) && (puzzle[3] + j[1]) != j){
-					if (vocabSet.has(j[1] + puzzle[4]) && (j[1] + puzzle[4]) != j){
-						if (vocabSet.has(j[1] + puzzle[5]) && (j[1] + puzzle[5]) != j){
-							if (vocabSet.has(j[0] + puzzle[6]) && (j[0] + puzzle[6]) != j){
-								
+				if (vocabSet.has(puzzle[3] + j[1]) && (puzzle[3] + j[1]) != j) {
+					if (vocabSet.has(j[1] + puzzle[4]) && (j[1] + puzzle[4]) != j) {
+						if (vocabSet.has(j[1] + puzzle[5]) && (j[1] + puzzle[5]) != j) {
+							if (vocabSet.has(j[0] + puzzle[6]) && (j[0] + puzzle[6]) != j) {
+
 								answers.push(j);
 							}
 						}
@@ -264,3 +266,19 @@ function dupCheck() {
 	document.getElementById('dupCheckResult').innerText = answers;
 
 }
+
+window.onload = () => {
+	for (let i in color) {
+		let colorRadioButton = document.getElementById('colorRadioButton');
+		colorRadioButton.innerHTML +=
+			`<input type="radio" 
+		id = "${color[i]}" 
+		name="tempColor" 
+		value="${color[i]}" 
+		onclick="colorChange();">
+	<label for = "${color[i]}">${color[i]}</label>`;
+	};
+
+	let defaultColor = document.getElementById(`${color[0]}`);
+	defaultColor.checked = true;
+};
