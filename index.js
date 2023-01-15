@@ -198,7 +198,7 @@ function createPuzzleProcess() {
 			drawHint('puzzleCanvas');
 			drawHint('answerCanvas');
 			drawAns('answerCanvas');
-
+			dupCheck();
 		});
 		//パズルができなかったなら、キャンバスを消去し、アナウンス
 	} else {
