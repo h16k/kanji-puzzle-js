@@ -263,7 +263,7 @@ function dupCheck() {
 		}
 	}
 
-	document.getElementById('dupCheckResult').innerText = '別解：' + answers;
+	document.getElementById('dupCheckResult').innerText = '答え：' + answers;
 
 }
 
