@@ -1,3 +1,4 @@
+"use strict";
 let puzzle = [];
 let color = ["blue", "green", "orange", "pink"];
 let answer;
