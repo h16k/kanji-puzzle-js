@@ -200,6 +200,7 @@ function createPuzzleProcess() {
 			drawHint('answerCanvas');
 			drawAns('answerCanvas');
 			dupCheck();
+			puzzleText();
 		});
 		//パズルができなかったなら、キャンバスを消去し、アナウンス
 	} else {
@@ -266,6 +267,16 @@ function dupCheck() {
 
 	document.getElementById('dupCheckResult').innerText = '答え：' + answers;
 
+}
+
+function puzzleText(){
+	document.getElementById('puzzleText').innerText = `
+ ${puzzle[2]}  ${puzzle[3]}
+     ↓   ↓
+${puzzle[1]} → 〇 〇 → ${puzzle[4]}
+     ↓   ↓
+ ${puzzle[6]}  ${puzzle[5]}
+`;
 }
 
 window.onload = () => {
