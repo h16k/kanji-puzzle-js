@@ -3,6 +3,7 @@ let puzzle = [];
 let color = ["blue", "green", "orange", "pink"];
 let answer;
 
+
 function getTempColor() {
 	let radioButtonsForTempColor = document.getElementsByName('tempColor');
 
@@ -56,7 +57,7 @@ function twoRandNum(max) {
 }
 
 //パズルを生成（できるかどうかをチェック）
-function createPuzzle(canvas_id, order) {
+function createPuzzle(order) {
 	let isRandom = false;
 
 	if (order == "") {
@@ -270,7 +271,7 @@ function dupCheck() {
 }
 
 function puzzleText(){
-	document.getElementById('puzzleText').innerText = `
+	document.getElementById('puzzleTextVer').innerText = `
  ${puzzle[2]}  ${puzzle[3]}
      ↓   ↓
 ${puzzle[1]} → 〇 〇 → ${puzzle[4]}
@@ -279,6 +280,7 @@ ${puzzle[1]} → 〇 〇 → ${puzzle[4]}
 `;
 }
 
+//ページの読み込み時にパズルの色を選択するボタンを表示
 window.onload = () => {
 	for (let i in color) {
 		let colorRadioButton = document.getElementById('colorRadioButton');
