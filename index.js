@@ -47,7 +47,7 @@ function randNum(max) {
 
 //重複しない２つの数をランダムに作る
 function twoRandNum(max) {
-	let rand1,rand2;
+	let rand1, rand2;
 	do {
 		rand1 = randNum(max);
 		rand2 = randNum(max);
@@ -63,7 +63,7 @@ function createPuzzle(canvas_id, order) {
 		isRandom = true;
 		answer = ansArray[randNum(ansArray.length)];
 		document.getElementById("isRandom").classList.remove('hidden');
-	} else{
+	} else {
 		answer = order;
 		document.getElementById("isRandom").classList.add('hidden');
 		if (!puzzleIndexMap.has(order)) return false; //ユーザーが入力した答えが登録されていないときは不可
@@ -72,35 +72,15 @@ function createPuzzle(canvas_id, order) {
 	//その答えに関するパズルのヒント候補を取得する
 	let puzzlePieces = hintArray[puzzleIndexMap.get(answer)];
 
-	//左と左上に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
-	let leftAndLeftUp = [];
 	//左下に入るヒント（「答えの１文字目＋ヒント」で熟語になる）の候補
-	let leftDown = [];
-	//右と右下に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
-	let rightAndRightDown = [];
-	//右上に入るヒント（「答えの１文字目＋ヒント」で熟語になる）の候補
-	let rightUp = [];
+	let leftDown = puzzlePieces.filter(function (hint) { return answer[0] === hint[0] });
+	//左と左上に入るヒント（「ヒント＋答えの１文字目」で熟語になる）の候補
+	let leftAndLeftUp = puzzlePieces.filter(function (hint) { return answer[0] === hint[1] });
+	//右と右下に入るヒント（「答えの２文字目＋ヒント」で熟語になる）の候補
+	let rightAndRightDown = puzzlePieces.filter(function (hint) { return answer[1] === hint[0] });
+	//右上に入るヒント（「ヒント＋答えの２文字目」で熟語になる）の候補
+	let rightUp = puzzlePieces.filter(function (hint) { return answer[1] === hint[1] });
 
-
-	for (let i in puzzlePieces) {
-		let hint = puzzlePieces[i];
-		//答えの１文字目を含むヒントは、左側に入るはず
-		if (hint.includes(answer[0])) {
-			if (answer[0] === hint[0]) {
-				leftDown.push(hint);
-			} else {
-				leftAndLeftUp.push(hint);
-			}
-
-			//答えの２文字目を含むヒントは、右側に入るはず
-		} else {
-			if (answer[1] === hint[1]) {
-				rightUp.push(hint);
-			} else {
-				rightAndRightDown.push(hint);
-			}
-		}
-	}
 
 	if ((leftAndLeftUp.length >= 2) && (rightAndRightDown.length >= 2) && (rightUp.length > 0) && (leftDown.length > 0)) {
 		let randL = twoRandNum(leftAndLeftUp.length);
@@ -120,9 +100,9 @@ function createPuzzle(canvas_id, order) {
 		];
 
 		return puzzle;
-	}else if(isRandom){
+	} else if (isRandom) {
 		return createPuzzle('puzzleCanvas', "");
-	}else{
+	} else {
 		return false;
 	}
 }
@@ -269,7 +249,7 @@ function dupCheck() {
 
 }
 
-function puzzleText(){
+function puzzleText() {
 	document.getElementById('puzzleTextVer').innerText = `
  ${puzzle[2]}  ${puzzle[3]}
      ↓   ↓
