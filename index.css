@@ -1,8 +1,12 @@
 @font-face {
   font-family: 'ZenMaruGothicRegular';
   src: url('fonts/ZenMaruGothic-Regular.ttf');  
-  /* font-family: 'ZenMaruGothicMedium';
-  src: url('fonts/ZenMaruGothic-Medium.ttf'); */
+
+}
+
+@font-face {
+ font-family: 'ZenMaruGothicMedium';
+  src: url('fonts/ZenMaruGothic-Medium.ttf');
 }
 
 body{
