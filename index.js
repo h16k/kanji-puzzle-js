@@ -137,14 +137,16 @@ function drawAns(canvas_id) {
 	let posi = [[840, 1690], [1645, 1690]]
 
 	//文字のスタイル（大きさ、フォント）を指定
-	ctx.font = '500px ZenMaruGothicRegular';
+	ctx.font = '500px ZenMaruGothicMedium';
 	//文字の色を指定
-	ctx.fillStyle = '#000000';
+	ctx.fillStyle = '#0095d9';
 
 	//答えをcanvasに書き入れる
 	for (let i = 0; i < 2; i++) {
 		ctx.fillText(puzzle[0][i], posi[i][0], posi[i][1]);
 	}
+
+	ctx.font = '320px ZenMaruGothicRegular';
 
 }
 
